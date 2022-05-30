@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<form action="" method="POST" id="new_product_form">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Product Info</legend>
+        {{ new_product_form.name | as_crispy_field }}
+        'name': 'Product name',
+        'sku': 'Product SKU'
+        'description': 'Product description',
+    </fieldset>
+    <fieldset>
+        <legend>Product Info</legend>
+
+        'status': 'Product status',
+        'stock': 'Inventory',
+        'price': 'Price',
+    </fieldset>
+
+</form>
+
+{% endblock %}

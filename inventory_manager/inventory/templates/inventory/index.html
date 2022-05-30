@@ -19,10 +19,11 @@
             <div class="product-list">
                 <h4>Products</h4>
                 {% if products.length > 0 %}
+                    <div class="section-message">View, edit or delete products below:</div>
                     {% for product in products %}
                     {% endfor %}
                 {% else %}
-                    <p>There are no products here yet. Click <a href="">here</a> to create one.</p>
+                    <div class="section-message">There are no products here yet. Click <a href="{% url 'create_product' %}">here</a> to create one.</div>
                 {% endif %}
             </div>
             
