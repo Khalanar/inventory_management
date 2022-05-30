@@ -28,18 +28,27 @@
                     <div class="col-2">Actions</div>
                 </div>
                 {% for product in products %}
-    
-                    <div class="row h-100 product-row">
-                        <div class="col-3">{{product.name}}</div>
-                        <div class="col-3">{{product.sku}}</div>
-                        <!-- <div class="col-2">{{product.price}}</div> -->
-                        <!-- <div class="col-2">{{product.description}}</div> -->
-                        <div class="col-2">{{product.stock}}</div>
-                        <div class="col-2">{{product.status}}</div>
-                        <div class="col-1"><a href="{% url 'edit_product' product.id %}">edit</a></div>
-                        <div class="col-1">delete</div>
+                    {% if product.status.name != 'deleted' %}
+                        <div class="row h-100 product-row">
+                    {% else %}
+                        <div class="row h-100 deleted product-row">
+                    {% endif %}
 
-                    </div>
+                            <div class="col-3">{{product.name}}</div>
+                            <div class="col-3">{{product.sku}}</div>
+                            <!-- <div class="col-2">{{product.price}}</div> -->
+                            <!-- <div class="col-2">{{product.description}}</div> -->
+                            <div class="col-2">{{product.stock}}</div>
+                            <div class="col-2">{{product.status}}</div>
+                        
+                    {% if product.status.name != 'deleted' %}
+                            <div class="col-1"><a href="{% url 'edit_product' product.id %}">edit</a></div>
+                            <div class="col-1"><a href="{% url 'update_product_status' product.id 'deleted'%}">delete</a></div>
+                    {% else %}
+                            <div class="col-1"><a href="{% url 'update_product_status' product.id 'published'%}">recover</a></div>
+                    {% endif %}
+                          
+                        </div>
                     {% endfor %}
                 {% else %}
                     <div class="section-message">There are no products here yet. Click <a href="{% url 'create_product' %}">here</a> to create one.</div>

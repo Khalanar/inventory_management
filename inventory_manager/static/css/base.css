@@ -17,3 +17,8 @@ body {
 .product-row:hover{
     background-color:rgb(195, 195, 195)
 }
+
+.deleted{
+    color: #0000003b;
+    font-style: italic;
+}

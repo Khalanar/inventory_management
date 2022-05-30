@@ -58,7 +58,7 @@ def edit_product(request, id):
 
             return HttpResponseRedirect(reverse('inventory'))
     else:
-        product = get_object_or_404(Product, id=id)
+        product = Product.objects.get(id=id)
 
         form_data = {
             'name': product.name,
@@ -76,4 +76,12 @@ def edit_product(request, id):
     }
 
     return render(request, 'inventory/edit_product.html', context)
+
+def update_product_status(request, id, status_name):
+    product = Product.objects.get(id=id)
+    product.status = Status.objects.get(name=status_name)
+
+    product.save()
+
+    return HttpResponseRedirect(reverse('inventory'))
 
