@@ -3,24 +3,27 @@
 
 
 {% block content %}
+<div class="row">
+<div class="col-8 offset-2">
+    <form action="" method="POST" id="new_product_form">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Product Info</legend>
+            {{ new_product_form.name | as_crispy_field }}
+            {{ new_product_form.price | as_crispy_field }}
+            {{ new_product_form.sku | as_crispy_field }}
+            {{ new_product_form.description | as_crispy_field }}
+        </fieldset>
+        <fieldset>
+            <legend>Product Status</legend>
+            {{ new_product_form.status | as_crispy_field }}
+            {{ new_product_form.stock | as_crispy_field }}
+        </fieldset>
+        <button type="submit" class="btn dark-btn btn-form-br">Create</button>
+    </form>
+</div>
 
-<form action="" method="POST" id="new_product_form">
-    {% csrf_token %}
-    <fieldset>
-        <legend>Product Info</legend>
-        {{ new_product_form.name | as_crispy_field }}
-        'name': 'Product name',
-        'sku': 'Product SKU'
-        'description': 'Product description',
-    </fieldset>
-    <fieldset>
-        <legend>Product Info</legend>
+</div>
 
-        'status': 'Product status',
-        'stock': 'Inventory',
-        'price': 'Price',
-    </fieldset>
-
-</form>
 
 {% endblock %}
