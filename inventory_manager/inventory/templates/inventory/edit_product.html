@@ -3,7 +3,7 @@
 
 
 {% block content %}
-CREATE
+EDIT
 <div class="row">
 <div class="col-8 offset-2">
     <form action="" method="POST" id="new_product_form">
@@ -20,7 +20,7 @@ CREATE
             {{ new_product_form.status | as_crispy_field }}
             {{ new_product_form.stock | as_crispy_field }}
         </fieldset>
-        <button type="submit" class="btn dark-btn btn-form-br">Create</button>
+        <button type="submit" class="btn dark-btn btn-form-br">Edit</button>
     </form>
 </div>
 

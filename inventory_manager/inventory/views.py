@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, get_object_or_404, HttpResponseRedirect
 from .models import Product, Status
 
 from .forms import NewProductForm
@@ -23,16 +23,7 @@ def create_product(request):
     if request.method == "POST":
         print('POST FORM')
         
-        form_data = {
-            'name': request.POST['name'],
-            'sku': request.POST['sku'],
-            'status': request.POST['status'],
-            'stock': request.POST['stock'],
-            'price': request.POST['price'],
-            'description': request.POST['description'],
-        }
-        
-        new_product_form = NewProductForm(form_data)
+        new_product_form = NewProductForm(request.POST)
 
         if new_product_form.is_valid():
             print('form is valid')
@@ -48,3 +39,41 @@ def create_product(request):
     }
 
     return render(request, 'inventory/create_product.html', context)
+
+def edit_product(request, id):
+    print(id)
+    if request.method == "POST":
+        print(f'{id} - ID')
+        product = Product.objects.get(id=id)
+        new_product_form = NewProductForm(request.POST)
+
+        if new_product_form.is_valid():
+            product.name = new_product_form.cleaned_data['name']
+            product.sku = new_product_form.cleaned_data['sku']
+            product.status = new_product_form.cleaned_data['status']
+            product.stock = new_product_form.cleaned_data['stock']
+            product.price = new_product_form.cleaned_data['price']
+            product.description = new_product_form.cleaned_data['description']
+            product.save()
+
+            return HttpResponseRedirect(reverse('inventory'))
+    else:
+        product = get_object_or_404(Product, id=id)
+
+        form_data = {
+            'name': product.name,
+            'sku': product.sku,
+            'status': product.status,
+            'stock': product.stock,
+            'price': product.price,
+            'description': product.description,
+        }
+
+        new_product_form = NewProductForm(form_data)
+
+    context = {
+        'new_product_form': new_product_form,
+    }
+
+    return render(request, 'inventory/edit_product.html', context)
+

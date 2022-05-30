@@ -6,7 +6,7 @@
 <div class="container h-100">
 
     <div class="row">
-        <div class="col-3">
+        <div class="d-none col-md-3 d-md-block">
             <div class="available-status">
                 <h4>Status</h4>
                 {% for s in status %}
@@ -15,12 +15,31 @@
             </div>
 
         </div>
-        <div class="col-9">
+        <div class="col-12 col-md-9">
             <div class="product-list">
-                <h4>Products</h4>
-                {% if products.length > 0 %}
-                    <div class="section-message">View, edit or delete products below:</div>
-                    {% for product in products %}
+                <h4>Products</h4>             
+                {% if products|length > 0 %}
+                <div class="section-message"><a href="{% url 'create_product' %}">Add product</a></div>
+                <div class="row h-100">
+                    <div class="col-3">Name</div>
+                    <div class="col-3">SKU</div>
+                    <div class="col-2">Stock</div>
+                    <div class="col-2">Status</div>
+                    <div class="col-2">Actions</div>
+                </div>
+                {% for product in products %}
+    
+                    <div class="row h-100 product-row">
+                        <div class="col-3">{{product.name}}</div>
+                        <div class="col-3">{{product.sku}}</div>
+                        <!-- <div class="col-2">{{product.price}}</div> -->
+                        <!-- <div class="col-2">{{product.description}}</div> -->
+                        <div class="col-2">{{product.stock}}</div>
+                        <div class="col-2">{{product.status}}</div>
+                        <div class="col-1"><a href="{% url 'edit_product' product.id %}">edit</a></div>
+                        <div class="col-1">delete</div>
+
+                    </div>
                     {% endfor %}
                 {% else %}
                     <div class="section-message">There are no products here yet. Click <a href="{% url 'create_product' %}">here</a> to create one.</div>
