@@ -1,9 +1,7 @@
-from os import ST_MANDLOCK
-from unicodedata import category, name
 from django.db import models
 
 
-class Status(mode.Models):
+class Status(models.Model):
     
     class Meta:
         verbose_name_plural = 'Status'
@@ -17,7 +15,7 @@ class Status(mode.Models):
     def get_friendly_name(self):
         return self.friendly_name
 
-class Product(model.Models):
+class Product(models.Model):
     name = models.CharField(max_length=254, null=False, blank=False)
     sku = models.CharField(max_length=254, null=True, blank=True)
     status = models.ForeignKey('Status', null=True, blank=True, on_delete=models.SET_NULL)
