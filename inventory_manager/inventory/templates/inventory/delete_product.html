@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    Edit Product
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col-8 offset-2">
+    <p>Are you sure you want to delete <span class="product-name">{{product.name}}</span></p>
+
+    <form action="" method="POST" id="new_product_form">
+        {% csrf_token %}
+            
+            {{ delete_form.deletion_comment | as_crispy_field }}
+
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+
+</div>
+
+
+{% endblock %}

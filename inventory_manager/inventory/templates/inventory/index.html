@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block page_header %}
+    Inventory Manager
+{% endblock %}
 
 {% block content %}
 <div class="container h-100">
 
     <div class="row">
-        <div class="d-none col-md-3 d-md-block">
+        <!-- <div class="d-none col-md-3 d-md-block">
             <div class="available-status">
                 <h4>Status</h4>
                 {% for s in status %}
@@ -14,17 +17,16 @@
                 {% endfor %}
             </div>
 
-        </div>
-        <div class="col-12 col-md-9">
+        </div> -->
+        <div class="col-12">
             <div class="product-list">
-                <h4>Products</h4>             
                 {% if products|length > 0 %}
-                <div class="section-message"><a href="{% url 'create_product' %}">Add product</a></div>
                 <div class="row h-100">
-                    <div class="col-3">Name</div>
-                    <div class="col-3">SKU</div>
-                    <div class="col-2">Stock</div>
+                    <div class="col-2">Name</div>
+                    <div class="col-2">SKU</div>
+                    <div class="col-1">Stock</div>
                     <div class="col-2">Status</div>
+                    <div class="col-3">Comments</div>
                     <div class="col-2">Actions</div>
                 </div>
                 {% for product in products %}
@@ -34,18 +36,18 @@
                         <div class="row h-100 deleted product-row">
                     {% endif %}
 
-                            <div class="col-3">{{product.name}}</div>
-                            <div class="col-3">{{product.sku}}</div>
-                            <!-- <div class="col-2">{{product.price}}</div> -->
-                            <!-- <div class="col-2">{{product.description}}</div> -->
-                            <div class="col-2">{{product.stock}}</div>
+                            <div class="col-2">{{product.name}}</div>
+                            <div class="col-2">{{product.sku}}</div>
+                            <div class="col-1">{{product.stock}}</div>
                             <div class="col-2">{{product.status}}</div>
                         
                     {% if product.status.name != 'deleted' %}
+                            <div class="col-3"></div>
                             <div class="col-1"><a href="{% url 'edit_product' product.id %}">edit</a></div>
-                            <div class="col-1"><a href="{% url 'update_product_status' product.id 'deleted'%}">delete</a></div>
+                            <div class="col-1"><a href="{% url 'delete_product' product.id%}">delete</a></div>
                     {% else %}
-                            <div class="col-1"><a href="{% url 'update_product_status' product.id 'published'%}">recover</a></div>
+                            <div class="col-3">{{product.deletion_comment}}</div>
+                            <div class="col-2"><a href="{% url 'update_product_status' product.id 'published'%}">recover</a></div>
                     {% endif %}
                           
                         </div>
@@ -59,6 +61,11 @@
     </div>
 
 
+</div>
+<div class="row">
+    <div class="col-12 text-center">
+        <a href="{% url 'create_product' %}" class="btn btn-primary my-5">Add product</a>
+    </div>
 </div>
 
 

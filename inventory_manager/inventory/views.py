@@ -1,7 +1,7 @@
 from django.shortcuts import render, reverse, get_object_or_404, HttpResponseRedirect
 from .models import Product, Status
 
-from .forms import NewProductForm
+from .forms import NewProductForm, DeleteForm
 
 # Create your views here.
 
@@ -42,9 +42,10 @@ def create_product(request):
 
 def edit_product(request, id):
     print(id)
+    product = Product.objects.get(id=id)
+
     if request.method == "POST":
         print(f'{id} - ID')
-        product = Product.objects.get(id=id)
         new_product_form = NewProductForm(request.POST)
 
         if new_product_form.is_valid():
@@ -58,8 +59,6 @@ def edit_product(request, id):
 
             return HttpResponseRedirect(reverse('inventory'))
     else:
-        product = Product.objects.get(id=id)
-
         form_data = {
             'name': product.name,
             'sku': product.sku,
@@ -84,4 +83,27 @@ def update_product_status(request, id, status_name):
     product.save()
 
     return HttpResponseRedirect(reverse('inventory'))
+
+def delete_product(request, id):
+    product = Product.objects.get(id=id)
+
+    if request.method == "POST":
+        delete_form = DeleteForm(request.POST)
+        if delete_form.is_valid():
+            product.deletion_comment = delete_form.cleaned_data['deletion_comment']
+            product.status = Status.objects.get(name='deleted')
+            product.save()
+
+            return HttpResponseRedirect(reverse('inventory'))
+
+    else:
+        delete_form = DeleteForm()
+
+        context = {
+            'delete_form': delete_form,
+            'product': product,
+        }
+
+    return render(request, 'inventory/delete_product.html', context)
+
 

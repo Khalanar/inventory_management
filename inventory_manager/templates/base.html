@@ -31,20 +31,26 @@
 
     {% block extra_js %}
     {% endblock %}
-    <title>Inventory App {% block extra_title %}{% endblock %}</title>
+    <title>Fall 2022 {% block extra_title %}{% endblock %}</title>
   </head>
   <body>
-    <header class="container-fluid">
-        <h3>Inventory App</h3>
-        <p>created for Backend Developer Intern</p>
+    <header class="container-fluid text-center">
+        <h3 class="text-center">Fall 2022 - Shopify</h3>
+        <p>Developer Intern Challenge Question</p>
+        <div>
+          <h2>
+            {% block page_header %}
+            {% endblock %}
+          </h2>
+        </div>
     </header>
+    <nav>
 
     {% if messages %}
         <div class="message-container"></div>
     {% endif %}
 
-    {% block page_header %}
-    {% endblock %}
+
 
     {% block content %}
     {% endblock %}
