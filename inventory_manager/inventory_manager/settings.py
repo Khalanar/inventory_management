@@ -26,8 +26,13 @@ SECRET_KEY = 'django-insecure-v)ll1%d(yn_q5%&r7w9qs)o!0m8e2ba)j+hqrq94$6%5!-su7t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  'e0f52b30-3fb2-4e36-8d4f-f5937bdf757f.id.repl.co',
+  'inventorymanagement.pablosanseg.repl.co',
+  'https://inventorymanagement.pablosanseg.repl.co'
+]
 
+CSRF_TRUSTED_ORIGINS = ['https://inventorymanagement.pablosanseg.repl.co']
 
 # Application definition
 
